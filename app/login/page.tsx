@@ -6,6 +6,8 @@ import {
   Center,
   Divider,
   Flex,
+  FormControl,
+  FormLabel,
   Heading,
   IconButton,
   Input,
@@ -31,13 +33,12 @@ export default function Login() {
   return (
     <>
       <Flex
-        width={"100vw"}
+        width={"100%"}
         height={"100vh"}
         alignContent={"center"}
         justifyContent={"center"}>
         <Center>
           <Box
-            w={"lg"}
             p={10}
             bg={useColorModeValue("gray.50", "gray.900")}
             borderRadius={10}
@@ -50,19 +51,15 @@ export default function Login() {
             <Text mb={10} textAlign={"center"}>
               Masuk
             </Text>
-            <Text mb={2} fontWeight={"bold"}>
-              Username
-            </Text>
-            <InputGroup mb={4}>
-              <InputLeftElement>
-                <AtSign size={18} />
-              </InputLeftElement>
-              <Input
-                value={value}
-                onChange={handleChange}
-                placeholder="Username Anda ..."
-              />
-            </InputGroup>
+            <FormControl variant={"floating"} isRequired>
+              <FormLabel fontWeight={"bold"}>Username</FormLabel>
+              <InputGroup mb={4}>
+                <InputLeftElement>
+                  <AtSign size={18} />
+                </InputLeftElement>
+                <Input value={value} onChange={handleChange} />
+              </InputGroup>
+            </FormControl>
             <Text mb={2} fontWeight={"bold"}>
               Password
             </Text>
@@ -84,11 +81,16 @@ export default function Login() {
                 />
               </InputRightElement>
             </InputGroup>
-            <Button mb={2} colorScheme={"forti"} w={"100%"}>
+            <Button mb={2} colorScheme={"forti"} w={"100%"} as={"a"} href={"/"}>
               Masuk
             </Button>
             <Divider mb={2} color={"whiteAlpha"} />
-            <Button mb={2} colorScheme={"gray"} w={"100%"}>
+            <Button
+              mb={2}
+              colorScheme={"gray"}
+              w={"100%"}
+              as={"a"}
+              href={"/signup"}>
               Daftar
             </Button>
           </Box>
