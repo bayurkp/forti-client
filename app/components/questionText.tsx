@@ -8,15 +8,12 @@ interface Props {
 export default function QuestionText(props: Props) {
   return (
     <>
-      <Box as={"a"} href={props.link} display={{ base: "inline", md: "none" }}>
+      <Box as={"a"} href={props.link}>
         <Text>
-          {props.text.length > 100
-            ? props.text.slice(0, 100) + " ..."
+          {props.text.length > 200
+            ? props.text.slice(0, 200) + "..."
             : props.text}
         </Text>
-      </Box>
-      <Box as={"a"} href={props.link} display={{ base: "none", md: "inline" }}>
-        <Text>{props.text}</Text>
       </Box>
     </>
   );
