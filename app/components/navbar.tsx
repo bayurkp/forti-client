@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  Box,
+  Avatar,
   Button,
   Flex,
   HStack,
@@ -14,14 +14,18 @@ import {
 import { MessagesSquare, Search } from "lucide-react";
 
 export default function Navbar() {
+  let isLogin: boolean = true;
   return (
     <Flex
-      w={"100%"}
       p={4}
+      w={"100%"}
+      bg={useColorModeValue("white", "gray.800")}
+      as={"nav"}
+      pos={"sticky"}
       alignItems={"center"}
-      justifyContent={"space-between"}
-      bg={useColorModeValue("gray.50", "gray.900")}
-      pos={"fixed"}>
+      border={"1px"}
+      borderColor={useColorModeValue("gray.200", "gray.700")}
+      justifyContent={"space-between"}>
       {/* Logo */}
       <HStack as="a" href="/">
         <MessagesSquare size={30} strokeWidth={2.5} />
@@ -30,7 +34,7 @@ export default function Navbar() {
       </HStack>
 
       {/* Search */}
-      <HStack display={{ lg: "inline", base: "none" }}>
+      <HStack display={{ lg: "inline-block", base: "none" }}>
         <InputGroup w={"xl"}>
           <InputLeftElement pointerEvents="none">
             <Search color="#CBD5E0" />
@@ -41,10 +45,15 @@ export default function Navbar() {
 
       {/* Login and Signup */}
       <HStack>
-        <Button colorScheme={"forti"}>Masuk</Button>
-        <Button colorScheme={"forti"} variant={"outline"}>
-          Daftar
-        </Button>
+        <Button variant={"ghost"}>Pengumuman</Button>
+        <Button variant={"ghost"}>Tanya</Button>
+        {isLogin ? (
+          <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
+        ) : (
+          <Button colorScheme={"forti"} as={"a"} href={"/login"}>
+            Masuk
+          </Button>
+        )}
       </HStack>
     </Flex>
   );
