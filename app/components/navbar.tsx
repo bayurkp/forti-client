@@ -26,10 +26,20 @@ import {
 import React from "react";
 import { Bell, Menu, MessagesSquare, Search, Send } from "lucide-react";
 
-export default function Navbar() {
-  let isLogin: boolean = true;
+interface Props {
+  user: {
+    username: string;
+    name: {
+      firstName: string;
+      lastName: string;
+    };
+    nim: string;
+    picture: string;
+  };
+}
+
+export default function Navbar(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef();
 
   return (
     <>
@@ -69,17 +79,11 @@ export default function Navbar() {
           <Button variant={"ghost"} leftIcon={<Send size={20} />}>
             Posting
           </Button>
-          {isLogin ? (
-            <Avatar
-              name="Dan Abrahmov"
-              size={"sm"}
-              src="https://bit.ly/dan-abramov"
-            />
-          ) : (
-            <Button colorScheme={"forti"} as={"a"} href={"/login"}>
-              Masuk
-            </Button>
-          )}
+          <Avatar
+            size={"sm"}
+            name={props.user.name.firstName + props.user.name.firstName}
+            src={props.user.picture}
+          />
         </HStack>
       </Flex>
 
@@ -179,20 +183,12 @@ export default function Navbar() {
           </DrawerBody>
           <Divider />
           <DrawerFooter justifyContent={"left"} gap={4}>
-            {isLogin ? (
-              <>
-                <Avatar
-                  name="Dan Abrahmov"
-                  size={"sm"}
-                  src="https://bit.ly/dan-abramov"
-                />
-                <Text>Dan Abrahamov</Text>
-              </>
-            ) : (
-              <Button colorScheme={"forti"} as={"a"} href={"/login"}>
-                Masuk
-              </Button>
-            )}
+            <Avatar
+              size={"sm"}
+              name={props.user.name.firstName + props.user.name.firstName}
+              src={props.user.picture}
+            />
+            <Text>Dan Abrahamov</Text>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
