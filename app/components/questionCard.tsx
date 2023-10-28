@@ -1,6 +1,8 @@
 import {
   Avatar,
+  Badge,
   Box,
+  Button,
   Flex,
   HStack,
   IconButton,
@@ -30,14 +32,9 @@ export default function QuestionCard() {
           />
           <Text fontWeight={"bold"}>@roronoaz123</Text>
         </HStack>
-        <Tooltip hasArrow label={"Laporkan"} placement={"top"}>
-          <IconButton
-            aria-label={"Laporkan"}
-            icon={<Flag />}
-            variant={"ghost"}
-            colorScheme={"gray"}
-          />
-        </Tooltip>
+        <Badge px={2} py={1}>
+          Kelompok Studi
+        </Badge>
       </HStack>
       <QuestionText
         link={"#"}
@@ -48,23 +45,33 @@ export default function QuestionCard() {
       <Flex justify={"space-between"} mt={4}>
         <HStack>
           <Tooltip hasArrow label={"Suka"} placement={"bottom"}>
-            <IconButton
-              aria-label={"Suka"}
+            <Button
+              leftIcon={<ThumbsUp size={20} />}
               colorScheme={"green"}
-              variant={"ghost"}
-              icon={<ThumbsUp />}
-            />
+              px={2}
+              variant={"ghost"}>
+              30
+            </Button>
           </Tooltip>
           <Tooltip hasArrow label={"Tidak Suka"} placement={"bottom"}>
-            <IconButton
-              aria-label={"Tidak Suka"}
+            <Button
+              leftIcon={<ThumbsDown size={20} />}
               colorScheme={"red"}
-              variant={"ghost"}
-              icon={<ThumbsDown />}
-            />
+              px={2}
+              variant={"ghost"}>
+              10
+            </Button>
           </Tooltip>
         </HStack>
         <HStack>
+          <Tooltip hasArrow label={"Laporkan"} placement={"bottom"}>
+            <IconButton
+              aria-label={"Laporkan"}
+              icon={<Flag size={20} />}
+              variant={"ghost"}
+              colorScheme={"gray"}
+            />
+          </Tooltip>
           <ReplyModal username={"roronoaz123"} />
         </HStack>
       </Flex>
