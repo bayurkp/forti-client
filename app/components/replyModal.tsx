@@ -9,8 +9,9 @@ import {
   useDisclosure,
   Button,
   HStack,
-  Input,
+  Textarea,
 } from "@chakra-ui/react";
+import { MessageSquarePlus } from "lucide-react";
 
 interface Props {
   username: string;
@@ -20,17 +21,22 @@ export default function ReplyModal(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      <Button colorScheme={"forti"} onClick={onOpen}>
+      <Button
+        colorScheme={"forti"}
+        onClick={onOpen}
+        leftIcon={<MessageSquarePlus size={20} />}
+        variant={"ghost"}
+        px={2}>
         Balas
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Balas @{props.username}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Input></Input>
+            <Textarea placeholder="Here is a sample placeholder" size="sm" />
           </ModalBody>
           <ModalFooter>
             <HStack>
