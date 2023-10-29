@@ -1,8 +1,16 @@
 "use client";
 
-import { Container, Spinner, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Stack,
+  VStack,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import Navbar from "./components/navbar";
-import QuestionCard from "./components/postCard";
+import PostCard from "./components/postCard";
 import ColorModeToggle from "./components/colorModeToggle";
 
 const dummyUser = {
@@ -16,6 +24,78 @@ const dummyUser = {
     picture: "",
   },
 };
+
+const dummyMostLikedData = [
+  {
+    id: 8,
+    user: {
+      username: "dianKurnia123",
+      name: {
+        firstName: "Dian",
+        lastName: "Kurnia",
+      },
+      nim: "2205551xxx",
+      picture: "",
+    },
+    post: {
+      id: 8,
+      content:
+        "Halo teman-teman, saya sedang belajar tentang pengembangan aplikasi mobile. Apa materi atau buku yang direkomendasikan untuk pemula seperti saya?",
+      replies: [""],
+      category: "Lainnya",
+      likes: 160,
+      dislikes: 5,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
+    },
+  },
+  {
+    id: 9,
+    user: {
+      username: "arieWijaya456",
+      name: {
+        firstName: "Arie",
+        lastName: "Wijaya",
+      },
+      nim: "2205551xxx",
+      picture: "",
+    },
+    post: {
+      id: 9,
+      content:
+        "Halo teman-teman, saya ingin memperdalam pengetahuan saya tentang kecerdasan buatan. Apa buku atau kursus online terbaik untuk itu?",
+      replies: [""],
+      category: "Lainnya",
+      likes: 110,
+      dislikes: 3,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
+    },
+  },
+  {
+    id: 10,
+    user: {
+      username: "putriMaulida789",
+      name: {
+        firstName: "Putri",
+        lastName: "Maulida",
+      },
+      nim: "2205551xxx",
+      picture: "",
+    },
+    post: {
+      id: 10,
+      content:
+        "Halo teman-teman, saya ingin mencari tahu tentang perusahaan IT yang menerima magang. Apa perusahaan terkemuka yang menerima mahasiswa magang?",
+      replies: [""],
+      category: "Minat dan Bakat",
+      likes: 103,
+      dislikes: 1,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
+    },
+  },
+];
 
 const dummyData = [
   {
@@ -37,6 +117,8 @@ const dummyData = [
       category: "Lainnya",
       likes: 30,
       dislikes: 1,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
     },
   },
   {
@@ -58,6 +140,8 @@ const dummyData = [
       category: "Praktikum",
       likes: 25,
       dislikes: 0,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
     },
   },
   {
@@ -79,6 +163,8 @@ const dummyData = [
       category: "Lainnya",
       likes: 18,
       dislikes: 2,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
     },
   },
   {
@@ -100,6 +186,8 @@ const dummyData = [
       category: "Lainnya",
       likes: 14,
       dislikes: 0,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
     },
   },
   {
@@ -121,6 +209,8 @@ const dummyData = [
       category: "Kepanitian",
       likes: 12,
       dislikes: 1,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
     },
   },
   {
@@ -142,6 +232,8 @@ const dummyData = [
       category: "Minat dan Bakat",
       likes: 20,
       dislikes: 1,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
     },
   },
   {
@@ -163,6 +255,8 @@ const dummyData = [
       category: "Praktikum",
       likes: 15,
       dislikes: 0,
+      createdAt: "2023-10-28 19:18",
+      updatedAt: "2023-10-28 19:18",
     },
   },
 ];
@@ -172,13 +266,62 @@ export default function Home() {
     <>
       <Navbar {...dummyUser} />
       <ColorModeToggle />
-      <Container maxW={"container.lg"} my={4} centerContent>
-        <VStack>
-          {dummyData.map((e) => {
-            return <QuestionCard {...e} />;
-          })}
-          <Spinner />
-        </VStack>
+      <Container maxW={"container.xl"} centerContent>
+        <Stack
+          mt={{ base: "93.6px", lg: "153.6px" }}
+          direction={{ base: "column", xl: "row" }}>
+          <VStack mb={8}>
+            {dummyData.map((e) => {
+              return (
+                <PostCard {...e} w={{ base: "sm", md: "xl", xl: "3xl" }} />
+              );
+            })}
+            <Button variant={"solid"}>Lainnya ...</Button>
+          </VStack>
+          <VStack
+            mb={8}
+            p={{ base: 0, xl: 4 }}
+            h={"fit-content"}
+            border={{ base: 0, xl: "1px" }}
+            borderRadius={{ base: 0, xl: 10 }}
+            bg={{
+              base: "transparent",
+              xl: useColorModeValue("gray.100", "gray.900"),
+            }}
+            borderColor={{
+              base: "transparent",
+              xl: useColorModeValue("gray.200", "gray.700"),
+            }}>
+            <Button variant={"ghost"} size={"lg"}>
+              <Heading as={"h2"} size={"md"}>
+                Postingan Paling Disukai
+              </Heading>
+            </Button>
+            <VStack mb={8}>
+              {dummyMostLikedData.map((e) => {
+                return (
+                  <PostCard {...e} w={{ base: "sm", md: "xl", xl: "md" }} />
+                );
+              })}
+            </VStack>
+            <Button variant={"ghost"} size={"lg"}>
+              <Heading as={"h2"} size={"md"}>
+                Media Sosial HMTI
+              </Heading>
+            </Button>
+            <Box
+              as={"iframe"}
+              p={4}
+              bg={useColorModeValue("white", "gray.800")}
+              border={"1px"}
+              borderColor={useColorModeValue("gray.200", "gray.700")}
+              borderRadius={10}
+              w={{ base: "sm", md: "xl", xl: "md" }}
+              h={{ base: "sm", md: "xl", xl: "md" }}
+              src={"https://www.instagram.com/hmtiudayana/embed"}
+            />
+          </VStack>
+        </Stack>
       </Container>
     </>
   );
