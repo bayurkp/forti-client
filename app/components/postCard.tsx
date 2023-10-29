@@ -13,6 +13,8 @@ import {
 import { Flag, ThumbsDown, ThumbsUp } from "lucide-react";
 import ReplyModal from "./replyModal";
 import QuestionText from "./postContent";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 interface Props {
   id: number;
@@ -32,13 +34,23 @@ interface Props {
     category: string;
     likes: number;
     dislikes: number;
+    createdAt: string;
+    updatedAt: string;
+  };
+  w: {
+    base: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
   };
 }
 
 export default function PostCard(props: Props) {
+  dayjs.extend(relativeTime);
   return (
     <Box
-      w={{ base: "xs", md: "2xl", lg: "4xl" }}
+      w={props.w}
       p={8}
       bg={useColorModeValue("white", "gray.800")}
       border={"1px"}
@@ -98,6 +110,9 @@ export default function PostCard(props: Props) {
           <ReplyModal username={props.user.username} />
         </HStack>
       </Stack>
+      <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>
+        {dayjs(props.post.updatedAt).fromNow()}
+      </Text>
     </Box>
   );
 }
