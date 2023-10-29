@@ -48,7 +48,8 @@ export default function Navbar(props: Props) {
         w={"100%"}
         bg={useColorModeValue("white", "gray.800")}
         as={"nav"}
-        pos={"sticky"}
+        pos={"fixed"}
+        zIndex={999999}
         alignItems={"center"}
         border={"1px"}
         borderColor={useColorModeValue("gray.200", "gray.700")}
@@ -89,12 +90,14 @@ export default function Navbar(props: Props) {
 
       {/* Addon */}
       <Flex
+        mt={"76.8px"}
         px={4}
         py={2}
         w={"100%"}
         bg={useColorModeValue("white", "gray.800")}
         as={"nav"}
-        pos={"sticky"}
+        pos={"fixed"}
+        zIndex={999999}
         alignItems={"center"}
         borderBottom={"1px"}
         borderColor={useColorModeValue("gray.200", "gray.700")}
@@ -115,7 +118,8 @@ export default function Navbar(props: Props) {
         w={"100%"}
         bg={useColorModeValue("white", "gray.800")}
         as={"nav"}
-        pos={"sticky"}
+        pos={"fixed"}
+        zIndex={999}
         alignItems={"center"}
         border={"1px"}
         borderColor={useColorModeValue("gray.200", "gray.700")}
@@ -185,10 +189,12 @@ export default function Navbar(props: Props) {
           <DrawerFooter justifyContent={"left"} gap={4}>
             <Avatar
               size={"sm"}
-              name={props.user.name.firstName + props.user.name.firstName}
+              name={props.user.name.firstName + " " + props.user.name.lastName}
               src={props.user.picture}
             />
-            <Text>Dan Abrahamov</Text>
+            <Text>
+              {props.user.name.firstName + " " + props.user.name.lastName}
+            </Text>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
