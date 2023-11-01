@@ -8,6 +8,7 @@ export default function ColorModeToggle() {
       pos={"fixed"}
       mr={4}
       mb={4}
+      zIndex={99}
       right={0}
       bottom={0}
       aria-label={"Ganti Tema"}

@@ -36,15 +36,15 @@ export default function Login() {
         width={"100%"}
         height={"100vh"}
         alignContent={"center"}
-        justifyContent={"center"}
-        shadow={"sm"}>
+        justifyContent={"center"}>
         <Center>
           <Box
-            w={"lg"}
             p={30}
             bg={useColorModeValue("gray.50", "gray.900")}
             borderRadius={10}
-            shadow={"sm"}>
+            shadow={"sm"}
+            borderColor={useColorModeValue("gray.200", "gray.700")}
+            w={{ base: "xs", sm: "sm", md: "md", lg: "lg" }}>
             <Center mb={2}>
               <MessagesSquare size={30} strokeWidth={2.5} />
               &nbsp;

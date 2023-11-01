@@ -9,11 +9,7 @@ export default function PostContent(props: Props) {
   return (
     <>
       <Box as={"a"} href={props.link}>
-        <Text>
-          {props.content.length > 200
-            ? props.content.slice(0, 200) + "..."
-            : props.content}
-        </Text>
+        <Text>{props.content}</Text>
       </Box>
     </>
   );

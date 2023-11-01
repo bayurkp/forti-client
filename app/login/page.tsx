@@ -18,6 +18,7 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { AtSign, Eye, EyeOff, MessagesSquare } from "lucide-react";
+import ColorModeToggle from "../components/colorModeToggle";
 
 export default function Login() {
   const [isHidden, setIsHidden] = useState<boolean>(true);
@@ -32,6 +33,7 @@ export default function Login() {
 
   return (
     <>
+      <ColorModeToggle />
       <Flex
         width={"100%"}
         height={"100vh"}
@@ -40,9 +42,11 @@ export default function Login() {
         <Center>
           <Box
             p={10}
-            bg={useColorModeValue("gray.50", "gray.900")}
+            bg={useColorModeValue("white", "gray.800")}
+            border={"1px"}
+            borderColor={useColorModeValue("gray.200", "gray.700")}
             borderRadius={10}
-            shadow={"sm"}>
+            w={{ base: "xs", sm: "sm", md: "md" }}>
             <Center mb={2}>
               <MessagesSquare size={30} strokeWidth={2.5} />
               &nbsp;
@@ -51,7 +55,7 @@ export default function Login() {
             <Text mb={10} textAlign={"center"}>
               Masuk
             </Text>
-            <FormControl variant={"floating"} isRequired>
+            <FormControl isRequired>
               <FormLabel fontWeight={"bold"}>Username</FormLabel>
               <InputGroup mb={4}>
                 <InputLeftElement>
@@ -60,27 +64,26 @@ export default function Login() {
                 <Input value={value} onChange={handleChange} />
               </InputGroup>
             </FormControl>
-            <Text mb={2} fontWeight={"bold"}>
-              Password
-            </Text>
-            <InputGroup mb={4}>
-              <Input
-                value={password}
-                onChange={handlePassword}
-                type={isHidden ? "password" : "text"}
-                placeholder="Password Anda ..."
-              />
-              <InputRightElement
-                onClick={() => {
-                  setIsHidden(!isHidden);
-                }}>
-                <IconButton
-                  aria-label="Show/hide password"
-                  size={"sm"}
-                  icon={isHidden ? <Eye /> : <EyeOff />}
+            <FormControl isRequired>
+              <FormLabel fontWeight={"bold"}>Password</FormLabel>
+              <InputGroup mb={4}>
+                <Input
+                  value={password}
+                  onChange={handlePassword}
+                  type={isHidden ? "password" : "text"}
                 />
-              </InputRightElement>
-            </InputGroup>
+                <InputRightElement
+                  onClick={() => {
+                    setIsHidden(!isHidden);
+                  }}>
+                  <IconButton
+                    aria-label="Show/hide password"
+                    size={"sm"}
+                    icon={isHidden ? <Eye /> : <EyeOff />}
+                  />
+                </InputRightElement>
+              </InputGroup>
+            </FormControl>
             <Button mb={2} colorScheme={"forti"} w={"100%"} as={"a"} href={"/"}>
               Masuk
             </Button>

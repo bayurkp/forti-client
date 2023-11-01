@@ -49,7 +49,7 @@ export default function Navbar(props: Props) {
         bg={useColorModeValue("white", "gray.800")}
         as={"nav"}
         pos={"fixed"}
-        zIndex={999999}
+        zIndex={999}
         alignItems={"center"}
         border={"1px"}
         borderColor={useColorModeValue("gray.200", "gray.700")}
@@ -97,7 +97,7 @@ export default function Navbar(props: Props) {
         bg={useColorModeValue("white", "gray.800")}
         as={"nav"}
         pos={"fixed"}
-        zIndex={999999}
+        zIndex={999}
         alignItems={"center"}
         borderBottom={"1px"}
         borderColor={useColorModeValue("gray.200", "gray.700")}

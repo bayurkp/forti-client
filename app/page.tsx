@@ -273,7 +273,11 @@ export default function Home() {
           <VStack mb={8}>
             {dummyData.map((e) => {
               return (
-                <PostCard {...e} w={{ base: "sm", md: "xl", xl: "3xl" }} />
+                <PostCard
+                  key={e.id}
+                  {...e}
+                  w={{ base: "sm", md: "xl", xl: "3xl" }}
+                />
               );
             })}
             <Button variant={"solid"}>Lainnya ...</Button>
@@ -300,7 +304,11 @@ export default function Home() {
             <VStack mb={8}>
               {dummyMostLikedData.map((e) => {
                 return (
-                  <PostCard {...e} w={{ base: "sm", md: "xl", xl: "md" }} />
+                  <PostCard
+                    key={e.id}
+                    {...e}
+                    w={{ base: "sm", md: "xl", xl: "md" }}
+                  />
                 );
               })}
             </VStack>
