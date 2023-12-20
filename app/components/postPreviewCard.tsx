@@ -4,7 +4,6 @@ import {
   Button,
   HStack,
   IconButton,
-  Link,
   Stack,
   Tag,
   Text,
@@ -15,7 +14,6 @@ import { Flag, ThumbsDown, ThumbsUp } from "lucide-react";
 import ReplyModal from "./replyModal";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { convertContentLinks } from "../utils/convertContentLinks";
 
 interface PostProps {
   id: number;
@@ -44,9 +42,8 @@ interface WidthProps {
   };
 }
 
-export default function PostCard(props: PostProps & WidthProps) {
+export default function PostPreviewCard(props: PostProps & WidthProps) {
   dayjs.extend(relativeTime);
-
   return (
     <Box
       w={props.w}
@@ -79,7 +76,12 @@ export default function PostCard(props: PostProps & WidthProps) {
           </Tooltip>
         </HStack>
       </Stack>
-      <Box>{convertContentLinks(props.content)}</Box>
+      <Box as={"a"} href={"#"}>
+        <Text>
+          {props.content.substring(0, 150)}
+          {props.content.length >= 150 && "..."}
+        </Text>
+      </Box>
       <Stack
         justify={"space-between"}
         mt={4}

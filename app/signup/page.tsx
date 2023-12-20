@@ -108,13 +108,13 @@ export default function Login() {
                 type={isHidden ? "password" : "text"}
                 placeholder="John123"
               />
-              <InputRightElement
-                onClick={() => {
-                  setIsHidden(!isHidden);
-                }}>
+              <InputRightElement>
                 <IconButton
                   aria-label="Show/hide password"
                   size={"sm"}
+                  onClick={() => {
+                    setIsHidden(!isHidden);
+                  }}
                   icon={isHidden ? <Eye /> : <EyeOff />}
                 />
               </InputRightElement>

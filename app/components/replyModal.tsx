@@ -14,10 +14,8 @@ import {
   FormControl,
   FormLabel,
   IconButton,
-  Text,
   CircularProgress,
   CircularProgressLabel,
-  useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { MessageSquarePlus, Paperclip } from "lucide-react";

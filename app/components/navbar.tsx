@@ -27,15 +27,11 @@ import React from "react";
 import { Bell, Menu, MessagesSquare, Search, Send } from "lucide-react";
 
 interface Props {
-  user: {
-    username: string;
-    name: {
-      firstName: string;
-      lastName: string;
-    };
-    nim: string;
-    picture: string;
-  };
+  id: number;
+  first_name: string;
+  last_name: string;
+  identity_number: string;
+  username: string;
 }
 
 export default function Navbar(props: Props) {
@@ -72,18 +68,15 @@ export default function Navbar(props: Props) {
           </InputGroup>
         </HStack>
 
-        {/* Login and Signup */}
+        {/* Post */}
         <HStack>
-          <Button variant={"ghost"} leftIcon={<Bell size={20} />}>
-            Pengumuman
-          </Button>
           <Button variant={"ghost"} leftIcon={<Send size={20} />}>
             Posting
           </Button>
           <Avatar
             size={"sm"}
-            name={props.user.name.firstName + props.user.name.firstName}
-            src={props.user.picture}
+            name={props.first_name + props.last_name}
+            src={""}
           />
         </HStack>
       </Flex>
@@ -189,12 +182,9 @@ export default function Navbar(props: Props) {
           <DrawerFooter justifyContent={"left"} gap={4}>
             <Avatar
               size={"sm"}
-              name={props.user.name.firstName + " " + props.user.name.lastName}
-              src={props.user.picture}
+              name={props.first_name + " " + props.last_name}
             />
-            <Text>
-              {props.user.name.firstName + " " + props.user.name.lastName}
-            </Text>
+            <Text>{props.first_name + " " + props.last_name}</Text>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

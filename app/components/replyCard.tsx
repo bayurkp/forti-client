@@ -4,7 +4,6 @@ import {
   Button,
   HStack,
   IconButton,
-  Link,
   Stack,
   Tag,
   Text,
@@ -17,7 +16,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { convertContentLinks } from "../utils/convertContentLinks";
 
-interface PostProps {
+interface ReplyProps {
   id: number;
   user: {
     id: number;
@@ -27,7 +26,6 @@ interface PostProps {
     username: string;
   };
   content: string;
-  category: string;
   likes: number;
   dislikes: number;
   created_at: string;
@@ -44,11 +42,11 @@ interface WidthProps {
   };
 }
 
-export default function PostCard(props: PostProps & WidthProps) {
+export default function ReplyCard(props: ReplyProps & WidthProps) {
   dayjs.extend(relativeTime);
-
   return (
     <Box
+      key={props.id}
       w={props.w}
       p={8}
       bg={useColorModeValue("white", "gray.800")}
@@ -68,7 +66,6 @@ export default function PostCard(props: PostProps & WidthProps) {
           <Text fontWeight={"bold"}>@{props.user.username}</Text>
         </HStack>
         <HStack>
-          <Tag w={"fit-content"}>{props.category}</Tag>
           <Tooltip hasArrow label={"Laporkan"} placement={"bottom"}>
             <IconButton
               aria-label={"Laporkan"}
@@ -79,7 +76,9 @@ export default function PostCard(props: PostProps & WidthProps) {
           </Tooltip>
         </HStack>
       </Stack>
-      <Box>{convertContentLinks(props.content)}</Box>
+      <Box>
+        <Text>{convertContentLinks(props.content)}</Text>
+      </Box>
       <Stack
         justify={"space-between"}
         mt={4}
@@ -103,9 +102,6 @@ export default function PostCard(props: PostProps & WidthProps) {
               {props.dislikes}
             </Button>
           </Tooltip>
-        </HStack>
-        <HStack>
-          <ReplyModal username={props.user.username} />
         </HStack>
       </Stack>
       <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>
