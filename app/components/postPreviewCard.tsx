@@ -11,9 +11,10 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Flag, ThumbsDown, ThumbsUp } from "lucide-react";
-import ReplyModal from "./replyModal";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { convertContentLinks } from "../utils/convertContentLinks";
+import AddReplyModal from "./addReplyModal";
 
 interface PostProps {
   id: number;
@@ -62,10 +63,17 @@ export default function PostPreviewCard(props: PostProps & WidthProps) {
             size={"sm"}
             name={props.user.first_name + props.user.last_name}
           />
-          <Text fontWeight={"bold"}>@{props.user.username}</Text>
+          <Text fontWeight={"bold"}>
+            {convertContentLinks(`@${props.user.username}`)}
+          </Text>
         </HStack>
         <HStack>
-          <Tag w={"fit-content"}>{props.category}</Tag>
+          <Tag
+            w={"fit-content"}
+            as={"a"}
+            href={"/posts?search=" + props.category.toLocaleLowerCase()}>
+            {props.category}
+          </Tag>
           <Tooltip hasArrow label={"Laporkan"} placement={"bottom"}>
             <IconButton
               aria-label={"Laporkan"}
@@ -76,7 +84,7 @@ export default function PostPreviewCard(props: PostProps & WidthProps) {
           </Tooltip>
         </HStack>
       </Stack>
-      <Box as={"a"} href={"#"}>
+      <Box as={"a"} href={"/posts/" + props.id}>
         <Text>
           {props.content.substring(0, 150)}
           {props.content.length >= 150 && "..."}
@@ -107,7 +115,7 @@ export default function PostPreviewCard(props: PostProps & WidthProps) {
           </Tooltip>
         </HStack>
         <HStack>
-          <ReplyModal username={props.user.username} />
+          <AddReplyModal username={props.user.username} />
         </HStack>
       </Stack>
       <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>

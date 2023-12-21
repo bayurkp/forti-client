@@ -10,22 +10,14 @@ import {
   Button,
   HStack,
   Textarea,
-  Input,
-  FormControl,
-  FormLabel,
-  IconButton,
   CircularProgress,
   CircularProgressLabel,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { MessageSquarePlus, Paperclip } from "lucide-react";
+import { Send } from "lucide-react";
 import { useState } from "react";
 
-interface Props {
-  username: string;
-}
-
-export default function ReplyModal(props: Props) {
+export default function AddPostModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [content, setContent] = useState<string>("");
@@ -34,25 +26,20 @@ export default function ReplyModal(props: Props) {
 
   return (
     <>
-      <Button
-        colorScheme={"forti"}
-        onClick={onOpen}
-        leftIcon={<MessageSquarePlus size={20} />}
-        variant={"ghost"}
-        px={2}>
-        Balas
+      <Button variant={"ghost"} onClick={onOpen} leftIcon={<Send size={20} />}>
+        Posting
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={"xl"}>
+      <Modal isOpen={isOpen} onClose={onClose} size={{ base: "sm", md: "xl" }}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Balas @{props.username}</ModalHeader>
+          <ModalHeader>Buat Postingan</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Textarea
-              placeholder="Balasan ..."
-              maxLength={300}
-              rows={6}
+              placeholder="Konten postingan Anda ..."
+              maxLength={500}
+              rows={9}
               value={content}
               resize={"none"}
               onChange={handleContentChange}
@@ -60,21 +47,11 @@ export default function ReplyModal(props: Props) {
           </ModalBody>
           <ModalFooter display={"flex"} justifyContent={"space-between"}>
             <HStack>
-              <FormControl>
-                <FormLabel>
-                  <IconButton
-                    as={"p"}
-                    aria-label={"Tambahkan Media"}
-                    variant={"ghost"}
-                    icon={<Paperclip size={20} />}
-                  />
-                </FormLabel>
-                <Input type={"file"} display={"none"} />
-              </FormControl>
               <CircularProgress
-                thickness={5}
+                thickness={10}
                 color={useColorModeValue("forti.500", "forti.200")}
-                value={(100 * content.length) / 300}>
+                value={(100 * content.length) / 500}
+                size={"45px"}>
                 <CircularProgressLabel fontWeight={"bold"}>
                   {content.length}
                 </CircularProgressLabel>

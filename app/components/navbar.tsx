@@ -25,6 +25,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { Bell, Menu, MessagesSquare, Search, Send } from "lucide-react";
+import AddPostModal from "./addPostModal";
 
 interface Props {
   id: number;
@@ -68,11 +69,9 @@ export default function Navbar(props: Props) {
           </InputGroup>
         </HStack>
 
-        {/* Post */}
+        {/* Post and User */}
         <HStack>
-          <Button variant={"ghost"} leftIcon={<Send size={20} />}>
-            Posting
-          </Button>
+          <AddPostModal />
           <Avatar
             size={"sm"}
             name={props.first_name + props.last_name}
@@ -141,15 +140,7 @@ export default function Navbar(props: Props) {
             <Text fontWeight={"bold"} mt={4} mb={2}>
               Aksi
             </Text>
-            <Divider my={2} />
-            <VStack align={"flex-start"}>
-              <Button variant={"ghost"} w={"full"} justifyContent={"left"}>
-                Pengumuman
-              </Button>
-              <Button variant={"ghost"} w={"full"} justifyContent={"left"}>
-                Posting
-              </Button>
-            </VStack>
+            <AddPostModal />
             <Text fontWeight={"bold"} mt={4} mb={2}>
               Kategori
             </Text>

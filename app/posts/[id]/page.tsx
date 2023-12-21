@@ -10,7 +10,6 @@ import {
   Container,
   Heading,
   Stack,
-  StackDivider,
   Text,
   VStack,
   useColorModeValue,
@@ -127,8 +126,8 @@ export default function Post() {
             <PostCard {...dummyPost} w={{ base: "sm", md: "xl", xl: "3xl" }} />
             <Text mt={8} mb={4} fontWeight={"bold"}>
               {dummyPost.replies.length
-                ? "*" + dummyPost.replies.length + " Balasan"
-                : "*Belum ada balasan"}
+                ? dummyPost.replies.length + " Balasan"
+                : "Belum ada balasan"}
             </Text>
             {dummyPost.replies.map((e) => {
               return (

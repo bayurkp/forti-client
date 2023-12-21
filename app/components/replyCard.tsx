@@ -11,10 +11,11 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { Flag, ThumbsDown, ThumbsUp } from "lucide-react";
-import ReplyModal from "./replyModal";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { convertContentLinks } from "../utils/convertContentLinks";
+import EditReplyModal from "./editReplyModal";
+import DeleteReplyModal from "./deleteReplyModal";
 
 interface ReplyProps {
   id: number;
@@ -63,7 +64,9 @@ export default function ReplyCard(props: ReplyProps & WidthProps) {
             size={"sm"}
             name={props.user.first_name + props.user.last_name}
           />
-          <Text fontWeight={"bold"}>@{props.user.username}</Text>
+          <Text fontWeight={"bold"}>
+            {convertContentLinks(`@${props.user.username}`)}
+          </Text>
         </HStack>
         <HStack>
           <Tooltip hasArrow label={"Laporkan"} placement={"bottom"}>
@@ -102,6 +105,13 @@ export default function ReplyCard(props: ReplyProps & WidthProps) {
               {props.dislikes}
             </Button>
           </Tooltip>
+        </HStack>
+        <HStack>
+          <EditReplyModal
+            username={props.user.username}
+            content={props.content}
+          />
+          <DeleteReplyModal id={props.id} />
         </HStack>
       </Stack>
       <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>

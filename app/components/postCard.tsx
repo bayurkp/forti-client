@@ -11,11 +11,13 @@ import {
   Tooltip,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Flag, ThumbsDown, ThumbsUp } from "lucide-react";
-import ReplyModal from "./replyModal";
+import { Flag, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { convertContentLinks } from "../utils/convertContentLinks";
+import AddReplyModal from "./addReplyModal";
+import EditPostModal from "./editPostModal";
+import DeletePostModal from "./deletePostModal";
 
 interface PostProps {
   id: number;
@@ -65,7 +67,9 @@ export default function PostCard(props: PostProps & WidthProps) {
             size={"sm"}
             name={props.user.first_name + props.user.last_name}
           />
-          <Text fontWeight={"bold"}>@{props.user.username}</Text>
+          <Text fontWeight={"bold"}>
+            {convertContentLinks(`@${props.user.username}`)}
+          </Text>
         </HStack>
         <HStack>
           <Tag w={"fit-content"}>{props.category}</Tag>
@@ -105,7 +109,12 @@ export default function PostCard(props: PostProps & WidthProps) {
           </Tooltip>
         </HStack>
         <HStack>
-          <ReplyModal username={props.user.username} />
+          <AddReplyModal username={props.user.username} />
+          <EditPostModal
+            username={props.user.username}
+            content={props.content}
+          />
+          <DeletePostModal id={1} />
         </HStack>
       </Stack>
       <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>

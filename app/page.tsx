@@ -12,6 +12,8 @@ import {
 import Navbar from "./components/navbar";
 import PostPreviewCard from "./components/postPreviewCard";
 import ColorModeToggle from "./components/colorModeToggle";
+import axios from "axios";
+import { number, string } from "yup";
 
 const dummyUser = {
   id: 24,
@@ -144,6 +146,65 @@ const dummyPosts = [
 ];
 
 export default function Home() {
+  interface Reply {
+    id: number;
+    user_id: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      identity_number: string;
+      username: string;
+    };
+    content: string;
+    created_at: string;
+    updated_at: string;
+    post: number;
+    user: number;
+  }
+
+  interface Post {
+    id: number;
+    user_id: {
+      id: number;
+      first_name: string;
+      last_name: string;
+      identity_number: string;
+      username: string;
+    };
+    replies: Reply[];
+    likes: number;
+    dislikes: number;
+    content: string;
+    category: string;
+    created_at: string;
+    updated_at: string;
+    user: number;
+  }
+
+  async function getPosts() {
+    try {
+      const { data } = await axios.get<Post[]>(
+        process.env.NEXT_PUBLIC_BASE_URL + "posts?format=json",
+        {
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
+      return data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.log("error message: ", error.message);
+        return error.message;
+      } else {
+        console.log("unexpected error: ", error);
+        return "An unexpected error occurred";
+      }
+    }
+  }
+
+  getPosts();
+
   return (
     <>
       <Navbar {...dummyUser} />
