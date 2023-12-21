@@ -28,6 +28,7 @@ export default function Login() {
       first_name: "",
       last_name: "",
       identity_number: "",
+      email: "",
       username: "",
       password: "",
     },
@@ -93,6 +94,17 @@ export default function Login() {
                 onChange={formik.handleChange}
                 value={formik.values.identity_number}
                 placeholder="2305551199"
+                mb={4}
+              />
+              <Text mb={2} fontWeight={"bold"}>
+                Email
+              </Text>
+              <Input
+                name={"email"}
+                onChange={formik.handleChange}
+                value={formik.values.email}
+                placeholder="2305551199"
+                type={"email"}
                 mb={4}
               />
               <Text mb={2} fontWeight={"bold"}>

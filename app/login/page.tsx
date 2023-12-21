@@ -32,14 +32,18 @@ export default function Login() {
     },
     onSubmit: async (values) => {
       await axios
-        .post("https://jsonplaceholder.typicode.com/users", {
+        .post("https://jsonplaceholder.typicode.com/users/1", {
           username: values.username,
           password: values.password,
         })
-        .then((response) => {
-          console.log(response);
+        .then((response: any) => {
+          if (response.username) {
+            localStorage.setItem("username", response.username);
+          } else {
+            location.replace("/login");
+          }
         });
-      location.replace("/");
+      // location.replace("/");
     },
   });
 
