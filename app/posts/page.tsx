@@ -1,43 +1,23 @@
 "use client";
 
-import ColorModeToggle from "@/app/components/colorModeToggle";
-import Navbar from "@/app/components/navbar";
-import PostCard from "@/app/components/postCard";
-import PostPreviewCard from "@/app/components/postPreviewCard";
-import ReplyCard from "@/app/components/replyCard";
-import { getPostById } from "@/app/lib/getPostById";
-import { getPosts } from "@/app/lib/getPosts";
 import {
+  Box,
   Button,
   Container,
   Heading,
   Stack,
-  Text,
   VStack,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useParams } from "next/navigation";
+import { getPosts } from "../lib/getPosts";
+import ColorModeToggle from "../components/colorModeToggle";
+import Navbar from "../components/navbar";
+import PostPreviewCard from "../components/postPreviewCard";
+import { useSearchParams } from "next/navigation";
 
-export default function Post() {
+export default function Home() {
   if (!localStorage.getItem("token")) {
     location.replace("/login");
-  }
-
-  interface Reply {
-    id: number;
-    user: {
-      id: number;
-      first_name: string;
-      last_name: string;
-      identity_number: string;
-      username: string;
-    };
-    post: number;
-    likes: number;
-    dislikes: number;
-    content: string;
-    created_at: string;
-    updated_at: string;
   }
 
   interface Post {
@@ -49,7 +29,6 @@ export default function Post() {
       identity_number: string;
       username: string;
     };
-    replies: Reply[];
     likes: number;
     dislikes: number;
     content: string;
@@ -58,9 +37,16 @@ export default function Post() {
     updated_at: string;
   }
 
-  const { id } = useParams();
-  const post: Post = getPostById(id.toString());
-  const relatedPosts = getPosts({ category: post.category, limit: 3 });
+  const posts: Post[] = getPosts({
+    sort: "updated_at",
+    order: "desc",
+    content: useSearchParams().get("content"),
+  });
+  const mostLikedPosts: Post[] = getPosts({
+    sort: "likes",
+    order: "desc",
+    limit: 3,
+  });
 
   return (
     <>
@@ -70,18 +56,17 @@ export default function Post() {
         <Stack
           mt={{ base: "93.6px", lg: "153.6px" }}
           direction={{ base: "column", xl: "row" }}>
-          <VStack mb={8} align={"start"}>
-            <PostCard {...post} w={{ base: "sm", md: "xl", xl: "3xl" }} />
-            <Text mt={8} mb={4} fontWeight={"bold"}>
-              {post.replies.length
-                ? post.replies.length + " Balasan"
-                : "Belum ada balasan"}
-            </Text>
-            {post.replies.map((e) => {
+          <VStack mb={8}>
+            {posts.map((e) => {
               return (
-                <ReplyCard {...e} w={{ base: "sm", md: "xl", xl: "3xl" }} />
+                <PostPreviewCard
+                  key={e.id}
+                  {...e}
+                  w={{ base: "sm", md: "xl", xl: "3xl" }}
+                />
               );
             })}
+            <Button variant={"solid"}>Lainnya ...</Button>
           </VStack>
           <VStack
             mb={8}
@@ -99,11 +84,11 @@ export default function Post() {
             }}>
             <Button variant={"ghost"} size={"lg"}>
               <Heading as={"h2"} size={"md"}>
-                Postingan Yang Berhubungan
+                Postingan Paling Disukai
               </Heading>
             </Button>
             <VStack mb={8}>
-              {relatedPosts.map((e) => {
+              {mostLikedPosts.map((e) => {
                 return (
                   <PostPreviewCard
                     key={e.id}
@@ -113,6 +98,22 @@ export default function Post() {
                 );
               })}
             </VStack>
+            <Button variant={"ghost"} size={"lg"}>
+              <Heading as={"h2"} size={"md"}>
+                Media Sosial HMTI
+              </Heading>
+            </Button>
+            <Box
+              as={"iframe"}
+              p={4}
+              bg={useColorModeValue("white", "gray.800")}
+              border={"1px"}
+              borderColor={useColorModeValue("gray.200", "gray.700")}
+              borderRadius={10}
+              w={{ base: "sm", md: "xl", xl: "md" }}
+              h={{ base: "sm", md: "xl", xl: "md" }}
+              src={"https://www.instagram.com/hmtiudayana/embed"}
+            />
           </VStack>
         </Stack>
       </Container>

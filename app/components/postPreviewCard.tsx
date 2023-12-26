@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { convertContentLinks } from "../lib/convertContentLinks";
 import AddReplyModal from "./addReplyModal";
+import { useState } from "react";
 
 interface PostProps {
   id: number;
@@ -45,6 +46,12 @@ interface WidthProps {
 
 export default function PostPreviewCard(props: PostProps & WidthProps) {
   dayjs.extend(relativeTime);
+
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
+  const [likes, setLikes] = useState(props.likes);
+  const [dislikes, setDislikes] = useState(props.dislikes);
+
   return (
     <Box
       w={props.w}
@@ -100,8 +107,14 @@ export default function PostPreviewCard(props: PostProps & WidthProps) {
               leftIcon={<ThumbsUp size={20} />}
               colorScheme={"green"}
               px={2}
-              variant={"ghost"}>
-              {props.likes}
+              variant={"ghost"}
+              onClick={() => {
+                if (!isDisliked) {
+                  setLikes(likes + (isLiked ? -1 : 1));
+                  setIsLiked(!isLiked);
+                }
+              }}>
+              {likes}
             </Button>
           </Tooltip>
           <Tooltip hasArrow label={"Tidak Suka"} placement={"bottom"}>
@@ -109,8 +122,14 @@ export default function PostPreviewCard(props: PostProps & WidthProps) {
               leftIcon={<ThumbsDown size={20} />}
               colorScheme={"red"}
               px={2}
-              variant={"ghost"}>
-              {props.dislikes}
+              variant={"ghost"}
+              onClick={() => {
+                if (!isLiked) {
+                  setDislikes(dislikes + (isDisliked ? -1 : 1));
+                  setIsDisliked(!isDisliked);
+                }
+              }}>
+              {dislikes}
             </Button>
           </Tooltip>
         </HStack>

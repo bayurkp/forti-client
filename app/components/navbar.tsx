@@ -53,14 +53,22 @@ export default function Navbar() {
         </HStack>
 
         {/* Search */}
-        <HStack display={{ xl: "inline-block", base: "none" }}>
-          <InputGroup w={"xl"}>
-            <InputLeftElement pointerEvents="none">
-              <Search color="#CBD5E0" />
-            </InputLeftElement>
-            <Input px={10} type="text" placeholder="Cari pertanyaan ..." />
-          </InputGroup>
-        </HStack>
+        <form method={"get"} action={"/posts"}>
+          <HStack display={{ xl: "inline-block", base: "none" }}>
+            <InputGroup w={"xl"}>
+              <InputLeftElement pointerEvents="none">
+                <Search color="#CBD5E0" />
+              </InputLeftElement>
+              <Input
+                px={10}
+                type="text"
+                name={"content"}
+                placeholder="Cari pertanyaan ..."
+              />
+            </InputGroup>
+            <Input type={"submit"} display={"none"} />
+          </HStack>
+        </form>
 
         {/* Post and User */}
         <HStack>

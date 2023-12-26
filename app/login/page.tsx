@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Box,
   Button,
@@ -20,8 +20,13 @@ import {
 import { AtSign, Eye, EyeOff, MessagesSquare } from "lucide-react";
 import ColorModeToggle from "../components/colorModeToggle";
 import { useFormik } from "formik";
+import { axiosInstance } from "../lib/axiosInstance";
 
 export default function Login() {
+  if (localStorage.getItem("token")) {
+    location.replace("/");
+  }
+
   const [isHidden, setIsHidden] = useState<boolean>(true);
 
   const formik = useFormik({
@@ -30,7 +35,22 @@ export default function Login() {
       password: "",
     },
     onSubmit: (values) => {
-      console.log(values);
+      axiosInstance
+        .post("/login", {
+          username: values.username,
+          password: values.password,
+        })
+        .then((res) => {
+          console.log(res);
+          localStorage.setItem("user", res.data.data.id);
+          localStorage.setItem("username", res.data.data.username);
+          localStorage.setItem("token", res.data.data.token);
+          localStorage.setItem("user_role", res.data.data.user_role);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      location.replace("/");
     },
   });
 
@@ -102,7 +122,7 @@ export default function Login() {
                 colorScheme={"gray"}
                 w={"100%"}
                 as={"a"}
-                href={"/signup"}>
+                href={"/register"}>
                 Daftar
               </Button>
             </Box>

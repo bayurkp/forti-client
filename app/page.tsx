@@ -15,6 +15,10 @@ import ColorModeToggle from "./components/colorModeToggle";
 import { getPosts } from "./lib/getPosts";
 
 export default function Home() {
+  if (!localStorage.getItem("token")) {
+    location.replace("/login");
+  }
+
   interface Post {
     id: number;
     user: {
@@ -32,7 +36,10 @@ export default function Home() {
     updated_at: string;
   }
 
-  const posts: Post[] = getPosts();
+  const posts: Post[] = getPosts({
+    sort: "updated_at",
+    order: "desc",
+  });
   const mostLikedPosts: Post[] = getPosts({
     sort: "likes",
     order: "desc",

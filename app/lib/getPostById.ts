@@ -10,6 +10,7 @@ interface Reply {
     identity_number: string;
     username: string;
   };
+  post: number;
   likes: number;
   dislikes: number;
   content: string;
@@ -63,7 +64,7 @@ export const getPostById = (id: string) => {
       .catch((err) => {
         console.log(err);
       });
-  });
+  }, []);
 
   return post;
 };

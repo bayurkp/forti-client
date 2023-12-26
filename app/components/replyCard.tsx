@@ -16,6 +16,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import { convertContentLinks } from "../lib/convertContentLinks";
 import EditReplyModal from "./editReplyModal";
 import DeleteReplyModal from "./deleteReplyModal";
+import { useState } from "react";
 
 interface ReplyProps {
   id: number;
@@ -26,6 +27,7 @@ interface ReplyProps {
     identity_number: string;
     username: string;
   };
+  post: number;
   content: string;
   likes: number;
   dislikes: number;
@@ -45,6 +47,12 @@ interface WidthProps {
 
 export default function ReplyCard(props: ReplyProps & WidthProps) {
   dayjs.extend(relativeTime);
+
+  const [isLiked, setIsLiked] = useState(false);
+  const [isDisliked, setIsDisliked] = useState(false);
+  const [likes, setLikes] = useState(props.likes);
+  const [dislikes, setDislikes] = useState(props.dislikes);
+
   return (
     <Box
       key={props.id}
@@ -60,10 +68,7 @@ export default function ReplyCard(props: ReplyProps & WidthProps) {
         gap={4}
         direction={{ base: "column", md: "row" }}>
         <HStack>
-          <Avatar
-            size={"sm"}
-            name={props.user.first_name + props.user.last_name}
-          />
+          <Avatar size={"sm"} name={props.user.username} />
           <Text fontWeight={"bold"}>
             {convertContentLinks(`@${props.user.username}`)}
           </Text>
@@ -92,8 +97,14 @@ export default function ReplyCard(props: ReplyProps & WidthProps) {
               leftIcon={<ThumbsUp size={20} />}
               colorScheme={"green"}
               px={2}
-              variant={"ghost"}>
-              {props.likes}
+              variant={"ghost"}
+              onClick={() => {
+                if (!isDisliked) {
+                  setLikes(likes + (isLiked ? -1 : 1));
+                  setIsLiked(!isLiked);
+                }
+              }}>
+              {likes}
             </Button>
           </Tooltip>
           <Tooltip hasArrow label={"Tidak Suka"} placement={"bottom"}>
@@ -101,13 +112,21 @@ export default function ReplyCard(props: ReplyProps & WidthProps) {
               leftIcon={<ThumbsDown size={20} />}
               colorScheme={"red"}
               px={2}
-              variant={"ghost"}>
-              {props.dislikes}
+              variant={"ghost"}
+              onClick={() => {
+                if (!isLiked) {
+                  setDislikes(dislikes + (isDisliked ? -1 : 1));
+                  setIsDisliked(!isDisliked);
+                }
+              }}>
+              {dislikes}
             </Button>
           </Tooltip>
         </HStack>
         <HStack>
           <EditReplyModal
+            reply={props.id.toString()}
+            post={props.post.toString()}
             user={props.user.id.toString()}
             username={props.user.username}
             content={props.content}

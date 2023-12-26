@@ -19,8 +19,14 @@ import {
 } from "@chakra-ui/react";
 import { AtSign, Eye, EyeOff, MessagesSquare } from "lucide-react";
 import { useFormik } from "formik";
+import axios from "axios";
+import { axiosInstance } from "../lib/axiosInstance";
 
 export default function Login() {
+  if (localStorage.getItem("token")) {
+    location.replace("/");
+  }
+
   const [isHidden, setIsHidden] = useState<boolean>(true);
 
   const formik = useFormik({
@@ -33,7 +39,18 @@ export default function Login() {
       password: "",
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values));
+      axiosInstance
+        .post("/register", { values })
+        .then((res) => {
+          localStorage.setItem("user", res.data.data.id);
+          localStorage.setItem("username", res.data.data.username);
+          localStorage.setItem("token", res.data.data.token);
+          localStorage.setItem("user_role", res.data.data.user_role);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      location.replace("/");
     },
   });
 

@@ -20,8 +20,9 @@ import { editReply } from "../lib/editReply";
 
 interface Props {
   user: string;
-  username: string;
+  post: string;
   reply: string;
+  username: string;
   content: string;
 }
 
@@ -36,7 +37,7 @@ export default function EditReplyModal(props: Props) {
       content: props.content,
     },
     onSubmit: (values) => {
-      editReply(props.reply, values.content);
+      editReply(props.post, props.reply, values.content);
     },
   });
 
