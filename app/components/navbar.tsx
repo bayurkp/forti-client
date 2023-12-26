@@ -24,19 +24,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import React from "react";
-import { Bell, Menu, MessagesSquare, Search, Send } from "lucide-react";
+import { Menu, MessagesSquare, Search, Send } from "lucide-react";
 import AddPostModal from "./addPostModal";
 
-interface Props {
-  id: number;
-  first_name: string;
-  last_name: string;
-  identity_number: string;
-  username: string;
-}
-
-export default function Navbar(props: Props) {
+export default function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const username: string = localStorage.getItem("username")!;
 
   return (
     <>
@@ -72,11 +65,7 @@ export default function Navbar(props: Props) {
         {/* Post and User */}
         <HStack>
           <AddPostModal />
-          <Avatar
-            size={"sm"}
-            name={props.first_name + props.last_name}
-            src={""}
-          />
+          <Avatar size={"sm"} name={username} src={""} />
         </HStack>
       </Flex>
 
@@ -171,11 +160,8 @@ export default function Navbar(props: Props) {
           </DrawerBody>
           <Divider />
           <DrawerFooter justifyContent={"left"} gap={4}>
-            <Avatar
-              size={"sm"}
-              name={props.first_name + " " + props.last_name}
-            />
-            <Text>{props.first_name + " " + props.last_name}</Text>
+            <Avatar size={"sm"} name={username} />
+            <Text>@{username}</Text>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

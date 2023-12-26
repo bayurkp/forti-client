@@ -4,7 +4,6 @@ import {
   Button,
   HStack,
   IconButton,
-  Link,
   Stack,
   Tag,
   Text,
@@ -14,29 +13,46 @@ import {
 import { Flag, ThumbsDown, ThumbsUp, Trash2 } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { convertContentLinks } from "../utils/convertContentLinks";
+import { convertContentLinks } from "../lib/convertContentLinks";
 import AddReplyModal from "./addReplyModal";
 import EditPostModal from "./editPostModal";
 import DeletePostModal from "./deletePostModal";
 
-interface PostProps {
+interface Reply {
   id: number;
   user: {
     id: number;
-    first_name: string | null;
+    first_name: string;
     last_name: string;
     identity_number: string;
     username: string;
   };
-  content: string;
-  category: string;
   likes: number;
   dislikes: number;
+  content: string;
   created_at: string;
   updated_at: string;
 }
 
-interface WidthProps {
+interface Post {
+  id: number;
+  user: {
+    id: number;
+    first_name: string;
+    last_name: string;
+    identity_number: string;
+    username: string;
+  };
+  replies: Reply[];
+  likes: number;
+  dislikes: number;
+  content: string;
+  category: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Width {
   w: {
     base: string;
     sm?: string;
@@ -46,7 +62,7 @@ interface WidthProps {
   };
 }
 
-export default function PostCard(props: PostProps & WidthProps) {
+export default function PostCard(props: Post & Width) {
   dayjs.extend(relativeTime);
 
   return (

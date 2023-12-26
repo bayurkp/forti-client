@@ -20,7 +20,6 @@ import {
 import { AtSign, Eye, EyeOff, MessagesSquare } from "lucide-react";
 import ColorModeToggle from "../components/colorModeToggle";
 import { useFormik } from "formik";
-import axios from "axios";
 
 export default function Login() {
   const [isHidden, setIsHidden] = useState<boolean>(true);
@@ -30,20 +29,8 @@ export default function Login() {
       username: "",
       password: "",
     },
-    onSubmit: async (values) => {
-      await axios
-        .post("https://jsonplaceholder.typicode.com/users/1", {
-          username: values.username,
-          password: values.password,
-        })
-        .then((response: any) => {
-          if (response.username) {
-            localStorage.setItem("username", response.username);
-          } else {
-            location.replace("/login");
-          }
-        });
-      // location.replace("/");
+    onSubmit: (values) => {
+      console.log(values);
     },
   });
 

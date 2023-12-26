@@ -16,7 +16,6 @@ import {
 } from "@chakra-ui/react";
 import { MessageSquarePlus } from "lucide-react";
 import { useFormik } from "formik";
-import axios from "axios";
 
 interface Props {
   username: string;
@@ -30,11 +29,7 @@ export default function AddReplyModal(props: Props) {
       content: "",
     },
     onSubmit: (values) => {
-      axios({
-        method: "POST",
-        url: "http://localhost:3000/posts/1",
-        data: values,
-      });
+      console.log(values);
     },
   });
 
@@ -49,9 +44,12 @@ export default function AddReplyModal(props: Props) {
         Balas
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose} size={{ base: "sm", md: "xl" }}>
-        <ModalOverlay />
-        <form onSubmit={formik.handleSubmit}>
+      <form onSubmit={formik.handleSubmit}>
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          size={{ base: "sm", md: "xl" }}>
+          <ModalOverlay />
           <ModalContent>
             <ModalHeader>Balas @{props.username}</ModalHeader>
             <ModalCloseButton />
@@ -86,8 +84,8 @@ export default function AddReplyModal(props: Props) {
               </HStack>
             </ModalFooter>
           </ModalContent>
-        </form>
-      </Modal>
+        </Modal>
+      </form>
     </>
   );
 }

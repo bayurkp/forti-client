@@ -1,0 +1,391 @@
+GET USERS
+GET USERS?user_role=admin
+GET PUT DELETE USERS/40
+HASIL:
+{
+    "code": 200,
+    "status": "OK",
+    "data": [
+        {
+            "id": 40,
+            "first_name": "toha",
+            "last_name": "toha",
+            "identity_number": "2205551111",
+            "username": "tohatoha",
+            "email": "toha@email.com",
+            "password": "pbkdf2_sha256$600000$tHo9ofYKnZc4nWkyZ32H9t$u9ftXMbCeyLUEEnyv11JN2nI9DlnWIsJcEUSu2ckQCQ=",
+            "user_role": "humas",
+            "created_at": "2023-12-21T09:03:30.594030+08:00",
+            "updated_at": "2023-12-21T09:03:30.594030+08:00"
+        },
+        {
+            "id": 29,
+            "first_name": "Jargan",
+            "last_name": "Pronawa",
+            "identity_number": "2205551069",
+            "username": "jarganpronawa03",
+            "email": "jargan@gmail.com",
+            "password": "pbkdf2_sha256$600000$Sa62QBQw6zsJ8kNPPSihcV$56szfE1KF5HZqLUK4Yma4CzH3aiyjJZtWw2dYB53Cno=",
+            "user_role": "dosen",
+            "created_at": "2023-12-21T01:02:08.757129+08:00",
+            "updated_at": "2023-12-21T09:07:20.122724+08:00"
+        },
+        {
+            "id": 32,
+            "first_name": "bayu",
+            "last_name": "rizky",
+            "identity_number": "2205551070",
+            "username": "bayurizky",
+            "email": "bayu@gmail.com",
+            "password": "pbkdf2_sha256$600000$gCtt6soAn4gUQyk1yAwuQR$o31ioks9B13R6g+TiP/q/sUIbbMuudDiNmcDtRpbXGM=",
+            "user_role": "humas",
+            "created_at": "2023-12-21T01:04:49.446062+08:00",
+            "updated_at": "2023-12-21T09:08:37.338804+08:00"
+        },
+        {
+            "id": 35,
+            "first_name": "Gung",
+            "last_name": "Indi",
+            "identity_number": "2205551101",
+            "username": "gungindi",
+            "email": "gungindi@gmail.com",
+            "password": "pbkdf2_sha256$600000$wnJrUN1ZAKys122MUWQepA$ioNX07kB2o9UwhJYtA+dafyu+HyPC3UWJ67bsg+HJxg=",
+            "user_role": "admin",
+            "created_at": "2023-12-21T01:07:00.101190+08:00",
+            "updated_at": "2023-12-21T09:09:44.147082+08:00"
+        }
+    ]
+}
+
+
+
+POST REGISTER
+DATA SUBMIT:
+{
+    "first_name": "bayu",
+    "last_name": "pratama",
+    "identity_number": "2205551077",
+    "username": "baykntd123",
+    "email": "bay@kntd.com",
+    "password": "bay12345",
+    "user_role": "dosen"
+}
+
+POST LOGIN
+DATA SUBMIT:
+{
+    "username": "probawa",
+    "password": "probawa12345"
+}
+
+HASIL:
+{
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "id": 12,
+        "username": "adisunetra",
+        "token": "adisunetrapbkdf2_sha256$600000$ln2osJgq2koYNVtHgGJtAq$r7CpFqD9KZyscnaXJak1wwHm6ODOm3TOtBULziQtD8g=",
+        "user_role": "mahasiswa"
+    }
+}
+
+GET POSTS
+GET POSTS?content=mau%20%asam%20%sulfat
+GET POSTS?sort=likes&order=desc&limit=3
+HASIL:
+{
+    "code": 200,
+    "status": "OK",
+    "data": [
+        {
+            "id": 28,
+            "user": {
+                "id": 32,
+                "first_name": "bayu",
+                "last_name": "rizky",
+                "identity_number": "2205551070",
+                "username": "bayurizky"
+            },
+            "likes": 0,
+            "dislikes": 0,
+            "content": "besok verif skp",
+            "category": "pengumuman",
+            "created_at": "2023-12-21T01:47:33.333874+08:00",
+            "updated_at": "2023-12-21T01:47:33.333874+08:00"
+        },
+        {
+            "id": 30,
+            "user": {
+                "id": 33,
+                "first_name": "Griban",
+                "last_name": "Bakaruming",
+                "identity_number": "2205551022",
+                "username": "griban"
+            },
+            "likes": 0,
+            "dislikes": 0,
+            "content": "heheh",
+            "category": "post",
+            "created_at": "2023-12-21T04:27:21.837261+08:00",
+            "updated_at": "2023-12-21T04:27:21.837261+08:00"
+        },
+        {
+            "id": 44,
+            "user": {
+                "id": 33,
+                "first_name": "Griban",
+                "last_name": "Bakaruming",
+                "identity_number": "2205551022",
+                "username": "griban"
+            },
+            "likes": 0,
+            "dislikes": 0,
+            "content": "halo",
+            "category": "pengumuman",
+            "created_at": "2023-12-22T23:14:17.833748+08:00",
+            "updated_at": "2023-12-22T23:14:17.833748+08:00"
+        }
+    ]
+}
+
+POST POSTS
+DATA SUBMIT:
+{
+    "content": "HALOOO",
+    "category": "pengumuman",
+    "user": 33
+}
+HASIL:
+{
+    "code": 201,
+    "status": "CREATED",
+    "data": {
+        "id": 66,
+        "content": "HALOOO",
+        "category": "pengumuman",
+        "created_at": "2023-12-24T18:40:05.280755+08:00",
+        "updated_at": "2023-12-24T18:40:05.280755+08:00",
+        "user": 33
+    }
+}
+
+GET PUT DELETE POSTS/id:
+DATA SUBMIT (PUT):
+{
+    "content": "HALOOO",
+    "category": "pengumuman",
+    "user": 33
+}
+
+GET POST REPLIES
+HASIL:
+
+{
+    "code": 200,
+    "status": "OK",
+    "data": [
+        {
+            "id": 16,
+            "user": {
+                "id": 32,
+                "first_name": "bayu",
+                "last_name": "rizky",
+                "identity_number": "2205551070",
+                "username": "bayurizky"
+            },
+            "post": {
+                "id": 30,
+                "content": "heheh",
+                "user_id": 33
+            },
+            "content": "heheh",
+            "created_at": "2023-12-21T04:30:47.028136+08:00",
+            "updated_at": "2023-12-21T04:30:47.028136+08:00"
+        },
+        {
+            "id": 18,
+            "user": null,
+            "post": {
+                "id": 60,
+                "content": "wlewlelwelwewl",
+                "user_id": 33
+            },
+            "content": "wlewlelwelwewl",
+            "created_at": "2023-12-22T23:57:49.111803+08:00",
+            "updated_at": "2023-12-22T23:57:49.111803+08:00"
+        },
+        {
+            "id": 19,
+            "user": {
+                "id": 33,
+                "first_name": "Griban",
+                "last_name": "Bakaruming",
+                "identity_number": "2205551022",
+                "username": "griban"
+            },
+            "post": {
+                "id": 60,
+                "content": "wlewlelwelwewl",
+                "user_id": 33
+            },
+            "content": "wlewlelwelwewl",
+            "created_at": "2023-12-22T23:59:07.099679+08:00",
+            "updated_at": "2023-12-22T23:59:07.099679+08:00"
+        },
+        {
+            "id": 20,
+            "user": {
+                "id": 38,
+                "first_name": "yuyuyu",
+                "last_name": "hehehe",
+                "identity_number": "2205551012",
+                "username": "yuyuyu"
+            },
+            "post": {
+                "id": 28,
+                "content": "besok verif skp",
+                "user_id": 32
+            },
+            "content": "hahahaha",
+            "created_at": "2023-12-23T10:55:25.803823+08:00",
+            "updated_at": "2023-12-23T10:55:25.803823+08:00"
+        },
+        {
+            "id": 21,
+            "user": {
+                "id": 32,
+                "first_name": "bayu",
+                "last_name": "rizky",
+                "identity_number": "2205551070",
+                "username": "bayurizky"
+            },
+            "post": {
+                "id": 60,
+                "content": "wlewlelwelwewl",
+                "user_id": 33
+            },
+            "content": "damnn",
+            "created_at": "2023-12-23T10:55:45.549141+08:00",
+            "updated_at": "2023-12-23T10:55:45.549141+08:00"
+        }
+    ]
+}
+
+DATA SUBMIT:
+{
+    "content": "hai",
+    "post": 60,
+    "user": 33
+}
+
+GET PUT DELETE REPLIES/id
+
+HASIL: 
+{
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "id": 18,
+        "user": null,
+        "post": {
+            "id": 60,
+            "content": "wlewlelwelwewl",
+            "user_id": 33
+        },
+        "content": "wlewlelwelwewl",
+        "created_at": "2023-12-22T23:57:49.111803+08:00",
+        "updated_at": "2023-12-22T23:57:49.111803+08:00"
+    }
+}
+
+DATA SUBMIT (PUT):
+
+{
+    "content": "HALOOO",
+    "post": 60,
+    "user": 33
+}
+
+
+POSTS postFeedback
+DATA SUBMIT:
+
+{
+    "feedback_type": "like",
+    "user": 33,
+    "post": 60
+}
+
+GET PUT DELETE postFeedback/id
+DATA SUBMIT:
+{
+    "feedback_type": "like",
+    "user": 42,
+    "replies": 20
+}
+
+{
+    "code": 200,
+    "status": "OK",
+    "data": {
+        "id": 10,
+        "user": {
+            "id": 12,
+            "first_name": "Adi",
+            "last_name": "Sunetra",
+            "identity_number": "2305551010",
+            "username": "adisunetra"
+        },
+        "replies": [
+            {
+                "id": 8,
+                "user": {
+                    "id": 2,
+                    "first_name": "Bayu",
+                    "last_name": "Rizky",
+                    "identity_number": "2205551070",
+                    "username": "bayurizky"
+                },
+                "post": {
+                    "id": 10,
+                    "content": "Mau tanya, apakah kegiatan di kampus itu wajib ya? saya merasa waktu dan uang saya habis di dalam kegiatan dan tidak menghasilkan apa-apa, dan justru waktu saya mengerjakan tugas menjadi kacau dan nilai saya berpotensi rendah, saran aja mending kegiatan itu bisa di by pass menggunakan nilai",
+                    "user_id": 12
+                },
+                "likes": 5,
+                "dislikes": 1,
+                "content": "Sebenarnya jika kamu bisa membagi waktu dan menentukan skala prioritas ya tidak akan masalah, saya juga ikut banyak kegiatan dan kuliah tetap lancar dan mendapat IP tinggi",
+                "created_at": "2023-12-25T11:48:51.018601+08:00",
+                "updated_at": "2023-12-25T11:48:51.018601+08:00"
+            },
+            {
+                "id": 9,
+                "user": {
+                    "id": 1,
+                    "first_name": "Indi",
+                    "last_name": "Kusuma",
+                    "identity_number": "2205551079",
+                    "username": "indikusuma"
+                },
+                "post": {
+                    "id": 10,
+                    "content": "Mau tanya, apakah kegiatan di kampus itu wajib ya? saya merasa waktu dan uang saya habis di dalam kegiatan dan tidak menghasilkan apa-apa, dan justru waktu saya mengerjakan tugas menjadi kacau dan nilai saya berpotensi rendah, saran aja mending kegiatan itu bisa di by pass menggunakan nilai",
+                    "user_id": 12
+                },
+                "likes": 5,
+                "dislikes": 0,
+                "content": "Disitulah kamu belajar time management, lagipula kegiatan itu tidak sesibuk itu, saya pernah ikut lebih dari satu kegiatan sekaligus tapi tugas tetep jalan dan lancar. berhenti ngeluh dan buat tugas mu",
+                "created_at": "2023-12-25T11:49:59.373053+08:00",
+                "updated_at": "2023-12-25T11:49:59.373053+08:00"
+            }
+        ],
+        "likes": 1,
+        "dislikes": 4,
+        "content": "Mau tanya, apakah kegiatan di kampus itu wajib ya? saya merasa waktu dan uang saya habis di dalam kegiatan dan tidak menghasilkan apa-apa, dan justru waktu saya mengerjakan tugas menjadi kacau dan nilai saya berpotensi rendah, saran aja mending kegiatan itu bisa di by pass menggunakan nilai",
+        "category": "diskusi",
+        "created_at": "2023-12-25T11:47:33.526348+08:00",
+        "updated_at": "2023-12-25T11:47:33.526348+08:00"
+    }
+}
+
+posts/id

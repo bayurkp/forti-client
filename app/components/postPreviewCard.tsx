@@ -13,7 +13,7 @@ import {
 import { Flag, ThumbsDown, ThumbsUp } from "lucide-react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { convertContentLinks } from "../utils/convertContentLinks";
+import { convertContentLinks } from "../lib/convertContentLinks";
 import AddReplyModal from "./addReplyModal";
 
 interface PostProps {
