@@ -13,10 +13,13 @@ import {
   CircularProgress,
   CircularProgressLabel,
   useColorModeValue,
+  Input,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import { useFormik } from "formik";
 import { Send } from "lucide-react";
-import { useState } from "react";
+import { addPost } from "../lib/addPost";
 
 export default function AddPostModal() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,9 +27,10 @@ export default function AddPostModal() {
   const formik = useFormik({
     initialValues: {
       content: "",
+      category: "",
     },
     onSubmit: (values) => {
-      console.log("Konten berhasil dimasukkan: " + values);
+      addPost(values.content, values.category);
     },
   });
 
@@ -36,25 +40,34 @@ export default function AddPostModal() {
         Posting
       </Button>
 
-      <form onSubmit={formik.handleSubmit}>
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          size={{ base: "sm", md: "xl" }}>
+      <Modal isOpen={isOpen} onClose={onClose} size={{ base: "sm", md: "xl" }}>
+        <form onSubmit={formik.handleSubmit}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Buat Postingan</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Textarea
-                placeholder="Konten postingan Anda ..."
-                maxLength={500}
-                rows={9}
-                name={"content"}
-                resize={"none"}
-                value={formik.values.content}
-                onChange={formik.handleChange}
-              />
+              <FormControl isRequired mb={4}>
+                <FormLabel fontWeight={"bold"}>Konten</FormLabel>
+                <Textarea
+                  placeholder="Konten postingan Anda ..."
+                  maxLength={500}
+                  rows={9}
+                  name={"content"}
+                  resize={"none"}
+                  value={formik.values.content}
+                  onChange={formik.handleChange}
+                />
+              </FormControl>
+              <FormControl isRequired>
+                <FormLabel fontWeight={"bold"}>Kategori</FormLabel>
+                <Input
+                  name={"category"}
+                  placeholder={"Kategori postingan ..."}
+                  value={formik.values.category}
+                  onChange={formik.handleChange}
+                />
+              </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} justifyContent={"space-between"}>
               <HStack>
@@ -76,8 +89,8 @@ export default function AddPostModal() {
               </HStack>
             </ModalFooter>
           </ModalContent>
-        </Modal>
-      </form>
+        </form>
+      </Modal>
     </>
   );
 }

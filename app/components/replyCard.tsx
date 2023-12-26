@@ -108,10 +108,11 @@ export default function ReplyCard(props: ReplyProps & WidthProps) {
         </HStack>
         <HStack>
           <EditReplyModal
+            user={props.user.id.toString()}
             username={props.user.username}
             content={props.content}
           />
-          <DeleteReplyModal id={props.id} />
+          <DeleteReplyModal reply={props.id} user={props.user.id.toString()} />
         </HStack>
       </Stack>
       <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>

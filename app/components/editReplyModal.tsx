@@ -14,24 +14,29 @@ import {
   CircularProgressLabel,
   useColorModeValue,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useFormik } from "formik";
 import { Pencil } from "lucide-react";
+import { editReply } from "../lib/editReply";
 
 interface Props {
+  user: string;
   username: string;
+  reply: string;
   content: string;
 }
 
 export default function EditReplyModal(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const user = localStorage.getItem("user");
+  const user_role = localStorage.getItem("user_role");
+
   const formik = useFormik({
     initialValues: {
       content: props.content,
     },
     onSubmit: (values) => {
-      console.log(values);
+      editReply(props.reply, values.content);
     },
   });
 
@@ -42,7 +47,10 @@ export default function EditReplyModal(props: Props) {
         onClick={onOpen}
         leftIcon={<Pencil size={20} />}
         variant={"ghost"}
-        px={2}>
+        px={2}
+        display={
+          user_role === "admin" || user === props.user ? "inline-block" : "none"
+        }>
         Edit
       </Button>
 

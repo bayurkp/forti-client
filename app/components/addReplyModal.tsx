@@ -13,11 +13,15 @@ import {
   CircularProgress,
   CircularProgressLabel,
   useColorModeValue,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 import { MessageSquarePlus } from "lucide-react";
 import { useFormik } from "formik";
+import { addReply } from "../lib/addReply";
 
 interface Props {
+  post: string; // post id
   username: string;
 }
 
@@ -27,9 +31,11 @@ export default function AddReplyModal(props: Props) {
   const formik = useFormik({
     initialValues: {
       content: "",
+      post: props.post,
     },
     onSubmit: (values) => {
-      console.log(values);
+      addReply(values.content, values.post);
+      console.log({ values });
     },
   });
 
@@ -44,25 +50,25 @@ export default function AddReplyModal(props: Props) {
         Balas
       </Button>
 
-      <form onSubmit={formik.handleSubmit}>
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          size={{ base: "sm", md: "xl" }}>
+      <Modal isOpen={isOpen} onClose={onClose} size={{ base: "sm", md: "xl" }}>
+        <form onSubmit={formik.handleSubmit}>
           <ModalOverlay />
           <ModalContent>
             <ModalHeader>Balas @{props.username}</ModalHeader>
             <ModalCloseButton />
             <ModalBody>
-              <Textarea
-                placeholder="Balasan Anda..."
-                maxLength={500}
-                rows={9}
-                name={"content"}
-                value={formik.values.content}
-                resize={"none"}
-                onChange={formik.handleChange}
-              />
+              <FormControl isRequired mb={4}>
+                <FormLabel fontWeight={"bold"}>Konten</FormLabel>
+                <Textarea
+                  placeholder="Konten postingan Anda ..."
+                  maxLength={500}
+                  rows={9}
+                  name={"content"}
+                  resize={"none"}
+                  value={formik.values.content}
+                  onChange={formik.handleChange}
+                />
+              </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} justifyContent={"space-between"}>
               <HStack>
@@ -84,8 +90,8 @@ export default function AddReplyModal(props: Props) {
               </HStack>
             </ModalFooter>
           </ModalContent>
-        </Modal>
-      </form>
+        </form>
+      </Modal>
     </>
   );
 }

@@ -10,19 +10,29 @@ import {
   Button,
   HStack,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { Trash2 } from "lucide-react";
+import { axiosInstance } from "../lib/axiosInstance";
 
 interface Props {
-  id: number;
+  post: string;
+  user: string;
 }
 
 export default function DeletePostModal(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const deletePost = async () => {
-    //  await axios.delete(process.env.NEXT_PUBLIC_BASE_URL + "posts/" + props.id);
-    window.location.replace("/");
+  const user = localStorage.getItem("user");
+  const user_role = localStorage.getItem("user_role");
+
+  const deletePost = () => {
+    axiosInstance
+      .delete("/posts/" + props.post)
+      .then((res) => {
+        location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -32,7 +42,10 @@ export default function DeletePostModal(props: Props) {
         onClick={onOpen}
         leftIcon={<Trash2 size={20} />}
         variant={"ghost"}
-        px={2}>
+        px={2}
+        display={
+          user_role === "admin" || user === props.user ? "inline-block" : "none"
+        }>
         Hapus
       </Button>
 
@@ -44,7 +57,7 @@ export default function DeletePostModal(props: Props) {
           <ModalCloseButton />
           <ModalFooter display={"flex"} justifyContent={"space-between"}>
             <HStack>
-              <Button colorScheme={"forti"} onClick={() => deletePost()}>
+              <Button colorScheme={"forti"} onClick={deletePost}>
                 Hapus
               </Button>
               <Button onClick={onClose}>Batal</Button>

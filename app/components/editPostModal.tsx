@@ -14,24 +14,31 @@ import {
   CircularProgressLabel,
   useColorModeValue,
 } from "@chakra-ui/react";
-import axios from "axios";
 import { useFormik } from "formik";
 import { Pencil } from "lucide-react";
+import { editPost } from "../lib/editPost";
 
 interface Props {
+  post: string; // post id
   username: string;
+  user: string;
   content: string;
+  category: string;
 }
 
 export default function EditPostModal(props: Props) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const user = localStorage.getItem("user");
+  const user_role = localStorage.getItem("user_role");
+
   const formik = useFormik({
     initialValues: {
       content: props.content,
+      category: props.category,
     },
     onSubmit: (values) => {
-      console.log(values);
+      editPost(props.post, values.content, values.category);
     },
   });
 
@@ -42,7 +49,10 @@ export default function EditPostModal(props: Props) {
         onClick={onOpen}
         leftIcon={<Pencil size={20} />}
         variant={"ghost"}
-        px={2}>
+        px={2}
+        display={
+          user_role === "admin" || user === props.user ? "inline-block" : "none"
+        }>
         Edit
       </Button>
 

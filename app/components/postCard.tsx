@@ -125,12 +125,21 @@ export default function PostCard(props: Post & Width) {
           </Tooltip>
         </HStack>
         <HStack>
-          <AddReplyModal username={props.user.username} />
-          <EditPostModal
+          <AddReplyModal
+            post={props.id.toString()}
             username={props.user.username}
-            content={props.content}
           />
-          <DeletePostModal id={1} />
+          <EditPostModal
+            user={props.user.id.toString()}
+            username={props.user.username}
+            post={props.id.toString()}
+            content={props.content}
+            category={props.category}
+          />
+          <DeletePostModal
+            post={props.id.toString()}
+            user={props.user.id.toString()}
+          />
         </HStack>
       </Stack>
       <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>

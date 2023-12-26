@@ -115,7 +115,10 @@ export default function PostPreviewCard(props: PostProps & WidthProps) {
           </Tooltip>
         </HStack>
         <HStack>
-          <AddReplyModal username={props.user.username} />
+          <AddReplyModal
+            post={props.id.toString()}
+            username={props.user.username}
+          />
         </HStack>
       </Stack>
       <Text mt={2} textAlign={"right"} fontSize={"sm"} color={"gray.500"}>
